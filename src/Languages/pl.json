@@ -21,5 +21,12 @@
   "confirm": "Zatwierdź",
   "changePassword": "Zmień hasło",
   "employmentDate": "Data zatrudnienia",
-  "courierStatus": "Status kurierski"
+  "courierStatus": "Status kurierski",
+  "modificationSuccessful": "Zmodyfikowano pomyślnie",
+  "modificationUnsuccessful": "Niezmodyfikowano",
+  "langPL": "Polski",
+  "langENG": "Angielski",
+  "info": "Informacje",
+  "cancel": "Anuluj",
+  "confirmationMessage": "Jesteś pewien ?"
 }

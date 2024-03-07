@@ -21,5 +21,12 @@
   "confirm": "Confirm",
   "changePassword": "Change password",
   "employmentDate": "Date of employment",
-  "courierStatus": "Courier status"
+  "courierStatus": "Courier status",
+  "modificationSuccessful": "Modification successful",
+  "modificationUnsuccessful": "Unsuccessful modification",
+  "langPL": "Polish",
+  "langENG": "English",
+  "info": "Information",
+  "cancel": "Cancel",
+  "confirmationMessage": "Are you sure?"
 }

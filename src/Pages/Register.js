@@ -1,4 +1,3 @@
-import "../Styles/Login.css";
 import {MdErrorOutline} from "react-icons/md";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
@@ -51,52 +50,52 @@ function Register() {
 
     return(
         <>
-            <div className="loginPage">
-                <div className="loginBox registerScale">
-                    <div className="loginHeader"><FormattedMessage id="registerButton"/></div>
-                    <form className="loginForm" onSubmit={handleSubmit}>
-                        <div className="formGroup">
-                            <label htmlFor="login"><FormattedMessage id="login"/></label>
-                            <input type="text" value={login} id="login" name="login" onChange={(e) => setLogin(e.target.value)} required/>
+            <div className="d-flex align-content-center text-white justify-content-center mt-2">
+                <div className="primary-color p-4 rounded">
+                    <legend className="fs-2 fw-bold mb-4 text-lg-center "><FormattedMessage id="registerButton"/></legend>
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-floating mb-2">
+                            <input className="form-control" type="text" value={login} id="login" name="login" onChange={(e) => setLogin(e.target.value)} required/>
+                            <label className="text-black" htmlFor="login"><FormattedMessage id="login"/></label>
                         </div>
-                        <div className="formGroup">
-                            <label htmlFor="password"><FormattedMessage id="password"/></label>
-                            <input type={isPasswordVisible ? "text" : "password"} value={password} id="password" name="password" onChange={(e) => setPassword(e.target.value)} required/>
+                        <div className="form-floating mb-2">
+                            <input className="form-control" type={isPasswordVisible ? "text" : "password"} value={password} id="password" name="password" onChange={(e) => setPassword(e.target.value)} required/>
+                            <label className="text-black" htmlFor="password"><FormattedMessage id="password"/></label>
                         </div>
-                        <div className="formGroup">
-                            <label htmlFor="name"><FormattedMessage id="name"/></label>
-                            <input type="text" value={name} id="name" name="name" onChange={(e) => setName(e.target.value)} required/>
+                        <div className="form-floating mb-2">
+                            <input className="form-control" type="text" value={name} id="name" name="name" onChange={(e) => setName(e.target.value)} required/>
+                            <label className="text-black" htmlFor="name"><FormattedMessage id="name"/></label>
                         </div><
-                        div className="formGroup">
-                            <label htmlFor="surname"><FormattedMessage id="surname"/></label>
-                            <input type="text" value={surname} id="surname" name="surname" onChange={(e) => setSurname(e.target.value)} required/>
+                        div className="form-floating mb-2">
+                            <input className="form-control" type="text" value={surname} id="surname" name="surname" onChange={(e) => setSurname(e.target.value)} required/>
+                            <label className="text-black" htmlFor="surname"><FormattedMessage id="surname"/></label>
+                    </div>
+                        <div className="form-floating mb-2">
+                            <input className="form-control" type="email" value={email} id="email" name="email" onChange={(e) => setEmail(e.target.value)} required/>
+                            <label className="text-black" htmlFor="email"><FormattedMessage id="email"/></label>
                         </div>
-                        <div className="formGroup">
-                            <label htmlFor="email"><FormattedMessage id="email"/></label>
-                            <input type="email" value={email} id="email" name="email" onChange={(e) => setEmail(e.target.value)} required/>
+                        <div className="form-floating mb-2">
+                            <input className="form-control" type="text" value={phone} id="phone" name="phone" placeholder="#########" pattern="[0-9]{9}" maxLength='9' onChange={(e) => setPhone(e.target.value)} required/>
+                            <label className="text-black" htmlFor="phone"><FormattedMessage id="phone"/></label>
                         </div>
-                        <div className="formGroup">
-                            <label htmlFor="phone"><FormattedMessage id="phone"/></label>
-                            <input type="tel" value={phone} id="phone" name="phone" placeholder="#########" pattern="[0-9]{9}" maxLength='9' onChange={(e) => setPhone(e.target.value)} required/>
+                        <div className="mb-2">
+                            <div className="mt-2 cursor-pointer" onClick={handlePasswordVisibility}><FormattedMessage id="showPassword"/></div>
                         </div>
-                        <div className="formGroup">
-                            <div className="showPasswordToggle" onClick={handlePasswordVisibility}><FormattedMessage id="showPassword"/></div>
+                        <div className="mb-2">
+                            <div className="fst-italic"> <IoMdInformationCircleOutline /> <FormattedMessage id="correctLoginNotification"/></div>
+                            <div className="fst-italic"> <IoMdInformationCircleOutline /> <FormattedMessage id="correctPasswordNotification"/> </div>
+                            <div className="fst-italic"> <IoMdInformationCircleOutline /> <FormattedMessage id="correctNameNotification"/></div>
+                            <div className="fst-italic"> <IoMdInformationCircleOutline /> <FormattedMessage id="correctSurnameNotification"/></div>
+                            <div className="fst-italic"> <IoMdInformationCircleOutline /> <FormattedMessage id="correctPhoneNotification"/></div>
                         </div>
-                        <div className="formGroup">
-                            <div> <IoMdInformationCircleOutline /> <FormattedMessage id="correctLoginNotification"/></div>
-                            <div> <IoMdInformationCircleOutline /> <FormattedMessage id="correctPasswordNotification"/> </div>
-                            <div> <IoMdInformationCircleOutline /> <FormattedMessage id="correctNameNotification"/></div>
-                            <div> <IoMdInformationCircleOutline /> <FormattedMessage id="correctSurnameNotification"/></div>
-                            <div> <IoMdInformationCircleOutline /> <FormattedMessage id="correctPhoneNotification"/></div>
-                        </div>
-                        <div className="formGroup">
-                            <div className={`errorMessage${errorMessage === undefined ? '' : ' visible'}`}>
+                        <div className={`mb-2 ${errorMessage === undefined ? 'invisible' : ' visible'}`}>
+                            <div className={`fst-italic d-block p-1 bg-danger danger-text-color rounded`}>
                                 <MdErrorOutline />{`\t`}
                                 {errorMessage && <FormattedMessage id={errorMessage}/>}
                             </div>
                         </div>
-                        <div className="formGroup">
-                            <button type="submit"><FormattedMessage id="registerButton"/></button>
+                        <div className="mb-2">
+                            <button className="btn bg-white text-black" type="submit"><FormattedMessage id="registerButton"/></button>
                         </div>
                     </form>
                 </div>

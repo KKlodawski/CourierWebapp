@@ -10,6 +10,8 @@ import ModifyPersonalInformation from "./ModifyPersonalInformation";
 import { IntlProvider } from "react-intl";
 import textEN from '../Languages/en.json'
 import textPL from '../Languages/pl.json'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 const text = {
     en: textEN,

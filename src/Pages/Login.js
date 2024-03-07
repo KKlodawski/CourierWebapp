@@ -1,4 +1,3 @@
-import "../Styles/Login.css"
 import {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import { MdErrorOutline } from "react-icons/md";
@@ -47,27 +46,27 @@ function Login() {
 
     return (
         <>
-            <div className="loginPage">
-                <div className="loginBox">
-                    <div className="loginHeader"><FormattedMessage id="loginMessage"/></div>
-                    <form className="loginForm" onSubmit={handleSubmit}>
-                        <div className="formGroup">
+            <div className="d-flex align-content-center text-white justify-content-center mt-2">
+                <div className="primary-color p-4 rounded">
+                    <legend className="fs-2 fw-bold mb-4 text-lg-center "><FormattedMessage id="loginMessage"/></legend>
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-floating mb-3">
+                            <input className="form-control" type="text" value={login} id="login" name="login" onChange={(e) => setLogin(e.target.value)} required/>
                             <label htmlFor="login"><FormattedMessage id="login"/></label>
-                            <input type="text" value={login} id="login" name="login" onChange={(e) => setLogin(e.target.value)} required/>
                         </div>
-                        <div className="formGroup">
+                        <div className="form-floating mb-3">
+                            <input className="form-control" type={isPasswordVisible ? "text" : "password"} value={password} id="password" name="password" onChange={(e) => setPassword(e.target.value)} required/>
                             <label htmlFor="password"><FormattedMessage id="password"/></label>
-                            <input type={isPasswordVisible ? "text" : "password"} value={password} id="password" name="password" onChange={(e) => setPassword(e.target.value)} required/>
-                                <div className="showPasswordToggle" onClick={handlePasswordVisibility}><FormattedMessage id="showPassword"/></div>
+                            <div className="mt-2 cursor-pointer" onClick={handlePasswordVisibility}><FormattedMessage id="showPassword"/></div>
                         </div>
-                        <div className="formGroup">
-                            <div className={`errorMessage${errorMessage === undefined ? '' : ' visible'}`}><MdErrorOutline />{`\t${errorMessage}`}</div>
+                        <div className={`mb-3 ${errorMessage === undefined ? 'invisible' : ' visible'}`}>
+                            <div className={`fst-italic d-block p-1 bg-danger danger-text-color rounded`}><MdErrorOutline />{`\t${errorMessage}`}</div>
                         </div>
-                        <div className="formGroup">
-                            <button type="submit"><FormattedMessage id="loginMessage"/></button>
+                        <div className="mb-3">
+                            <button className="btn bg-white text-black" type="submit"><FormattedMessage id="loginMessage"/></button>
                         </div>
                     </form>
-                    <Link to="/Register" className="registerPrompt"><FormattedMessage id="createAccount"/></Link>
+                    <Link to="/Register" className="mt-2 cursor-pointer text-white text-decoration-none"><FormattedMessage id="createAccount"/></Link>
                 </div>
             </div>
         </>

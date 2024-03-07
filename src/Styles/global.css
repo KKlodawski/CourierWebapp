@@ -1,0 +1,45 @@
+/* Colors */
+
+.primary-color {
+    background-color: #301079 !important;
+}
+
+.primary-text-color {
+    color: gold !important;
+}
+
+.danger-text-color {
+    color: darkred !important;
+}
+
+.primary-hover:hover {
+    background-color: #18083f !important;
+}
+
+.primary-active:active {
+    color: gold !important;
+    scale: 0.9;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.invisible {
+    display: none;
+}
+
+.visible {
+    display: inherit;
+}
+
+/* Items */
+
+.flag {
+    border: 2px solid gold;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    padding: 0px;
+    margin-top: 5px;
+}
