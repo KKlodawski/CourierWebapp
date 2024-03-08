@@ -1,6 +1,8 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import {FormattedMessage} from "react-intl";
+import PersonalModal from "../Components/Modal";
+import {IoMdInformationCircleOutline} from "react-icons/io";
 
 function DataEdit() {
     const [personalInformation, setPersonalInformation] = useState({
@@ -17,92 +19,98 @@ function DataEdit() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const role = Cookies.get('role');
-        if(role === "Client") {
-            const data = {
-                id: personalInformation.id,
-                role: role,
-                name: personalInformation.name,
-                surname: personalInformation.surname,
-                email: personalInformation.email,
-                phone: personalInformation.phone
-            }
-            const response = await fetch(`http://127.0.0.1:3100/users/modify`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${Cookies.get('jwt')}`
-                },
-                body: JSON.stringify(data)
-            })
-            response.json().then(msg => {
-                setResponseMessage(msg.message);
-            })
-        }
-        if(role === "Courier" || role === "Menager") {
-            const data = {
-                id: personalInformation.id,
-                role: role,
-                name: personalInformation.name,
-                surname: personalInformation.surname
-            }
-            const response = await fetch(`http://127.0.0.1:3100/users/modify`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${Cookies.get('jwt')}`
-                },
-                body: JSON.stringify(data)
-            })
-            if(response.ok)
+        try {
+            const role = Cookies.get('role');
+            if (role === "Client") {
+                const data = {
+                    id: personalInformation.id,
+                    role: role,
+                    name: personalInformation.name,
+                    surname: personalInformation.surname,
+                    email: personalInformation.email,
+                    phone: personalInformation.phone
+                }
+                const response = await fetch(`http://127.0.0.1:3100/users/modify`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${Cookies.get('jwt')}`
+                    },
+                    body: JSON.stringify(data)
+                })
                 response.json().then(msg => {
                     setResponseMessage(msg.message);
                 })
-            else {
-                setResponseMessage("modificationUnsuccessful");
             }
+            if (role === "Courier" || role === "Menager") {
+                const data = {
+                    id: personalInformation.id,
+                    role: role,
+                    name: personalInformation.name,
+                    surname: personalInformation.surname
+                }
+                const response = await fetch(`http://127.0.0.1:3100/users/modify`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${Cookies.get('jwt')}`
+                    },
+                    body: JSON.stringify(data)
+                })
+                if (response.ok)
+                    response.json().then(msg => {
+                        setResponseMessage(msg.message);
+                    })
+                else {
+                    setResponseMessage("modificationUnsuccessful");
+                }
+            }
+        } catch (error) {
+            setResponseMessage("modificationUnsuccessful");
+            localStorage.setItem("apiDown", "true");
         }
-
     }
     useEffect( () => {
         const getData = async () => {
-            const response = await fetch(`http://127.0.0.1:3100/users/${Cookies.get("username")}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `${Cookies.get('jwt')}`
-                }
-            });
-            response.json().then(data => {
-                const role = Cookies.get("role");
-                if(role === "Client") {
-                    setPersonalInformation({
-                        id: data.id,
-                        name: data.name,
-                        surname: data.surname,
-                        email: data.email,
-                        phone: data.phone
-                    })
-                }
-                else if(role === "Courier") {
-                    setPersonalInformation({
-                        id: data.id,
-                        name: data.name,
-                        surname: data.surname,
-                        employmentDate: data.employmentDate,
-                        courierStatus: data.courierStatus
-                    })
-                }
-                else if(role === "Menager") {
-                    setPersonalInformation({
-                        id: data.id,
-                        name: data.name,
-                        surname: data.surname,
-                        employmentDate: data.employmentDate
-                    })
-                }
-                setLoading(false);
-            })
+            try {
+                const response = await fetch(`http://127.0.0.1:3100/users/${Cookies.get("username")}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${Cookies.get('jwt')}`
+                    }
+                });
+                response.json().then(data => {
+                    const role = Cookies.get("role");
+                    if (role === "Client") {
+                        setPersonalInformation({
+                            id: data.id,
+                            name: data.name,
+                            surname: data.surname,
+                            email: data.email,
+                            phone: data.phone
+                        })
+                    } else if (role === "Courier") {
+                        setPersonalInformation({
+                            id: data.id,
+                            name: data.name,
+                            surname: data.surname,
+                            employmentDate: data.employmentDate,
+                            courierStatus: data.courierStatus
+                        })
+                    } else if (role === "Menager") {
+                        setPersonalInformation({
+                            id: data.id,
+                            name: data.name,
+                            surname: data.surname,
+                            employmentDate: data.employmentDate
+                        })
+                    }
+                    setLoading(false);
+                })
+            } catch (error) {
+                localStorage.setItem("apiDown", "true")
+            }
         }
 
         getData();
@@ -164,25 +172,16 @@ function DataEdit() {
                     <label htmlFor="courierStatus"><FormattedMessage id="courierStatus"/></label>
                 </div>}
                 <div className="form-floating mb-2">
-                    <div> {responseMessage !== undefined && <FormattedMessage id={responseMessage}/>} </div>
+                    {responseMessage !== undefined &&
+                        <div className="fst-italic d-block p-1">
+                            <IoMdInformationCircleOutline /> <FormattedMessage id={responseMessage}/>
+                        </div>
+                    }
                 </div>
                 <div className="form-floating mb-2">
-                    <button type="button" className="btn bg-white text-black" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><FormattedMessage id="confirm"/></button>
+                    <button type="button" className="btn bg-white text-black" data-bs-toggle="modal" data-bs-target="#modalDataEdit"><FormattedMessage id="confirm"/></button>
                 </div>
-
-                <div className="modal " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-body text-black text-lg-center fw-bold mt-2 mb-4 fs-3">
-                                <FormattedMessage id="confirmationMessage"/>
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"><FormattedMessage id="cancel"/></button>
-                                <button type="submit" className="btn btn-primary" data-bs-dismiss="modal"><FormattedMessage id="confirm"/></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <PersonalModal id="modalDataEdit" text="confirmationMessage" confirmRole="submit"/>
             </form>
         </>
     )

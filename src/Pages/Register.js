@@ -21,30 +21,37 @@ function Register() {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const data = {
-            Login: login,
-            Password: password,
-            Name: name,
-            Surname: surname,
-            Email: email,
-            Phone: phone
-        }
-        const response = await fetch(`http://127.0.0.1:3100/users/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-        response.json().then(message => {
-            if(message.error === undefined ) {
-                setErrorMessage(undefined);
-                navigate('/login');
-            } else {
-                setErrorMessage(message.error);
+        try {
+            const data = {
+                Login: login,
+                Password: password,
+                Name: name,
+                Surname: surname,
+                Email: email,
+                Phone: phone
             }
-        })
+            const response = await fetch(`http://127.0.0.1:3100/users/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            if(response.ok || response.status === 400)
+                response.json().then(message => {
+                    if (message.error === undefined) {
+                        setErrorMessage(undefined);
+                        navigate('/login');
+                    } else {
+                        setErrorMessage(message.error);
+                    }
+                })
+            else {
+                throw new Error();
+            }
+        } catch (error) {
+            localStorage.setItem("apiDown", "true");
+        }
     }
 
 

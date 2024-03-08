@@ -9,15 +9,15 @@ function ModifyPersonalInformation() {
                 <div className="primary-color p-4 rounded">
                     <ul className="nav nav-tabs mb-4">
                         <li className="nav-item w-50 text-lg-center">
-                            <button className="nav-link w-100 active" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home"><FormattedMessage id="info"/></button>
+                            <button className="nav-link w-100 active" data-bs-toggle="tab" data-bs-target="#dataEdit" type="button" role="tab"><FormattedMessage id="info"/></button>
                         </li>
                         <li className="nav-item w-50 text-lg-center">
-                            <button className="nav-link w-100 " data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile"><FormattedMessage id="password"/></button>
+                            <button className="nav-link w-100 " data-bs-toggle="tab" data-bs-target="#passwordEdit" type="button" role="tab"><FormattedMessage id="password"/></button>
                         </li>
                     </ul>
                     <div className="tab-content">
-                        <div className="tab-pane fade show active" id="home" role="tabpanel"><DataEdit/></div>
-                        <div className="tab-pane fade" id="profile" role="tabpanel"><PasswordEdit/></div>
+                        <div className="tab-pane fade show active" id="dataEdit" role="tabpanel"><DataEdit/></div>
+                        <div className="tab-pane fade" id="passwordEdit" role="tabpanel"><PasswordEdit/></div>
                     </div>
                 </div>
             </div>

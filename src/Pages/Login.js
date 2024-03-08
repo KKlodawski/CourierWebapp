@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import { MdErrorOutline } from "react-icons/md";
 import { jwtDecode } from 'jwt-decode'
@@ -18,30 +18,37 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const data = {
-            Login: login,
-            Password: password
-        }
-        const response = await fetch(`http://127.0.0.1:3100/users/auth`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-        response.json().then(message => {
-            if(message.error === undefined ) {
-                const decodedToken = jwtDecode(message.token);
-                Cookies.set('jwt', message.token, {expires: 1, secure: true})
-                Cookies.set('role', decodedToken.role, {expires: 1, secure: true});
-                Cookies.set('username', decodedToken.login, {expires: 1, secure: true});
-                setErrorMessage(undefined);
-                navigate('/');
-            } else {
-                setErrorMessage(message.error);
+        try {
+            const data = {
+                Login: login,
+                Password: password
             }
-        })
+            const response = await fetch(`http://127.0.0.1:3100/users/auth`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            if(response.ok || response.status !== 404 || response.status !== 401) {
+                response.json().then(message => {
+                    if (message.error === undefined) {
+                        const decodedToken = jwtDecode(message.token);
+                        Cookies.set('jwt', message.token, {expires: 1, secure: true})
+                        Cookies.set('role', decodedToken.role, {expires: 1, secure: true});
+                        Cookies.set('username', decodedToken.login, {expires: 1, secure: true});
+                        setErrorMessage(undefined);
+                        navigate('/');
+                    } else {
+                        setErrorMessage(message.error);
+                    }
+                })
+            } else {
+                throw new Error();
+            }
+        }catch (error) {
+            localStorage.setItem("apiDown", "true");
+        }
     }
 
     return (

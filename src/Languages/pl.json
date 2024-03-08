@@ -28,5 +28,8 @@
   "langENG": "Angielski",
   "info": "Informacje",
   "cancel": "Anuluj",
-  "confirmationMessage": "Jesteś pewien ?"
+  "confirmationMessage": "Jesteś pewien ?",
+  "passwordChanged": "Hasło zostało zmienione",
+  "samePassword": "Podane hasło jest takie same jak poprzednie",
+  "apiDownMessage": "Brak połączenia z serwerem"
 }

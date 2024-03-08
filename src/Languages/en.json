@@ -28,5 +28,8 @@
   "langENG": "English",
   "info": "Information",
   "cancel": "Cancel",
-  "confirmationMessage": "Are you sure?"
+  "confirmationMessage": "Are you sure?",
+  "passwordChanged": "Password changed",
+  "samePassword": "Provided password is the same as previous one",
+  "apiDownMessage": "Problem with server connection"
 }
